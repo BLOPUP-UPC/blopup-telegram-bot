@@ -5,6 +5,7 @@ on:
 
 env:
   SSH_USER: ${{ secrets.SSH_USER }}
+  SSH_KEY: ${{ secrets.SSH_NON_PROD_PRIVATE_KEY }}
   ENV: blopup-dev.upc.edu
 
 permissions: write-all
@@ -15,11 +16,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: setup JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          cache: gradle
+          distribution: 'temurin'
       - name: Build
         run: gradle build
       - name: Configure SSH
-        env:
-          SSH_KEY: ${{ secrets.NON_PROD_SSH_PRIVATE_KEY }}
         run: |
           mkdir -p ~/.ssh/
           echo "$SSH_KEY" > ~/.ssh/remote.key
