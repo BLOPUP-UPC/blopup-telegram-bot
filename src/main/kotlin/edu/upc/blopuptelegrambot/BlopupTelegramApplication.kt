@@ -1,6 +1,5 @@
-package upc.edu.blopuptelegrambot
+package edu.upc.blopuptelegrambot
 
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.telegram.telegrambots.meta.TelegramBotsApi
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession
@@ -12,7 +11,7 @@ class BlopupTelegramApplication
 
 fun main() {
         val botsApi = TelegramBotsApi(DefaultBotSession::class.java)
-    val bot = Bot(System.getenv("TELEGRAM_BOT_TOKEN"))
+    val bot = Bot(System.getenv("TELEGRAM_BOT_TOKEN").toString())
     botsApi.registerBot(bot)
 
     }

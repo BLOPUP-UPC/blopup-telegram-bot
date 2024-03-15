@@ -7,8 +7,9 @@ plugins {
     id 'org.jetbrains.kotlin.plugin.spring' version '1.9.22'
 }
 
-group = 'com.example'
-version = '0.0.1-SNAPSHOT'
+group = 'edu.upc'
+archivesBaseName = 'blopup.telegram.bot'
+version = '1.0'
 
 java {
     sourceCompatibility = '17'
