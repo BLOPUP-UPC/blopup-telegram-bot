@@ -4,7 +4,8 @@ on:
   workflow_dispatch:
 
 env:
-  TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+  SSH_USER: ${{ secrets.SSH_USER }}
+  ENV: blopup-dev.upc.edu
 
 permissions: write-all
 
@@ -14,4 +15,24 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name Build
+      - run: gradle build
+      - name: Configure SSH
+        env:
+          SSH_KEY: ${{ secrets.NON_PROD_SSH_PRIVATE_KEY }}
+        run: |
+          mkdir -p ~/.ssh/
+          echo "$SSH_KEY" > ~/.ssh/remote.key
+          chmod 600 ~/.ssh/remote.key
+          cat >>~/.ssh/config <<END
+          Host remote
+            HostName $ENV
+            User $SSH_USER
+            IdentityFile ~/.ssh/remote.key
+            StrictHostKeyChecking no
+          END
+      - name: Deploy to non production environments
+        run: ssh remote export TELEGRAM_BOT_TOKEN=${{ secrets.TELEGRAM_BOT_TOKEN }} && docker-compose up -d --build
+      
+
 
