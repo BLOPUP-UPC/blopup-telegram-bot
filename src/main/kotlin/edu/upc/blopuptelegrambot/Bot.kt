@@ -6,7 +6,6 @@ import org.telegram.telegrambots.meta.api.objects.Update
 
 class Bot(botToken: String?) : TelegramLongPollingBot(botToken) {
     private val username = "Blopup_bot"
-    private var lastMessage: SendMessage? = null
 
     override fun getBotUsername() = username
 
@@ -33,7 +32,6 @@ class Bot(botToken: String?) : TelegramLongPollingBot(botToken) {
 
         try {
             execute(sendMessage)
-            lastMessage = sendMessage
         } catch (e: Exception) {
             e.printStackTrace()
         }
