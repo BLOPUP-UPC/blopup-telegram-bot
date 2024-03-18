@@ -36,5 +36,13 @@ jobs:
             IdentityFile ~/.ssh/remote.key
             StrictHostKeyChecking no
           END
+      - name: Copy deploy files to remote host
+        run: |
+          scp docker-compose-telegram.yaml remote:/home/$SSH_USER
+      - name: Set environment variables
+        run: |
+          cat >>~/.ssh/.env <<END
+          TELEGRAM_BOT_TOKEN=${{ secrets.TELEGRAM_BOT_TOKEN }}
+          END
       - name: Deploy to non production environments
-        run: ssh remote export TELEGRAM_BOT_TOKEN=${{ secrets.TELEGRAM_BOT_TOKEN }} && docker-compose up -d --build
+        run: ssh remote docker-compose -f docker-compose-telegram.yaml up -d --build && docker ps
