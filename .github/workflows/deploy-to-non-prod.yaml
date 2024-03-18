@@ -41,7 +41,9 @@ jobs:
           scp docker-compose-telegram.yaml remote:/home/$SSH_USER
           scp Dockerfile remote:/home/$SSH_USER
           scp build/libs/blopup.telegram.bot-1.0.jar remote:/home/$SSH_USER
+      - name: Set telegram bot token
+        run: |          
+          echo "TELEGRAM_BOT_TOKEN=${{ secrets.TELEGRAM_BOT_TOKEN }}" > .env
+          scp .env remote:/home/$SSH_USER
       - name: Deploy to non production environments
-        run: |
-          ssh remote export TELEGRAM_BOT_TOKEN=${{ secrets.TELEGRAM_BOT_TOKEN }}
-          ssh remote docker-compose -f docker-compose-telegram.yaml up -d --build
+        run: ssh remote docker-compose -f docker-compose-telegram.yaml up -d --build
