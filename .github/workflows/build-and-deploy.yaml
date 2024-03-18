@@ -1,12 +1,12 @@
-name: Deploy to non production environments
+name: Deploy Telegram Bot
 
 on:
   workflow_dispatch:
 
 env:
   SSH_USER: ${{ secrets.SSH_USER }}
-  SSH_KEY: ${{ secrets.SSH_NON_PROD_PRIVATE_KEY }}
-  ENV: blopup-dev.upc.edu
+  SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+  ENV: blopup.upc.edu
 
 permissions: write-all
 
@@ -47,3 +47,8 @@ jobs:
           scp .env remote:/home/$SSH_USER
       - name: Deploy to non production environments
         run: ssh remote docker-compose -f docker-compose-telegram.yaml up -d --build
+      - name: Remove sensitive files
+        run: |
+          ssh remote rm /home/$SSH_USER/.env
+          ssh remote rm /home/$SSH_USER/Dockerfile
+          ssh remote rm /home/$SSH_USER/blopup.telegram.bot-1.0.jar
