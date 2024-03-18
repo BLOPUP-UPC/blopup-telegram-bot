@@ -39,10 +39,12 @@ jobs:
       - name: Copy deploy files to remote host
         run: |
           scp docker-compose-telegram.yaml remote:/home/$SSH_USER
+          scp Dockerfile remote:/home/$SSH_USER
+          scp build/libs/blopup.telegram.bot-1.0.jar remote:/home/$SSH_USER
       - name: Set environment variables
         run: |
-          cat >>~/.ssh/.env <<END
-          TELEGRAM_BOT_TOKEN=${{ secrets.TELEGRAM_BOT_TOKEN }}
-          END
+          ssh remote cat >>~/.env <<END
+          ssh remote TELEGRAM_BOT_TOKEN=${{ secrets.TELEGRAM_BOT_TOKEN }}
+          ssh remote END
       - name: Deploy to non production environments
         run: ssh remote docker-compose -f docker-compose-telegram.yaml up -d --build && docker ps

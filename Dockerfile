@@ -1,6 +1,6 @@
-FROM openjdk:17.0.1
+FROM openjdk:17-jdk-slim
 
-COPY build/libs/blopup.telegram.bot-1.0.jar blopup.telegram.bot.jar
+COPY blopup.telegram.bot-1.0.jar blopup.telegram.bot.jar
 ENV TELEGRAM_BOT_TOKEN=$TELEGRAM_BOT_TOKEN
 
 CMD ["java", "-jar", "blopup.telegram.bot.jar"]
