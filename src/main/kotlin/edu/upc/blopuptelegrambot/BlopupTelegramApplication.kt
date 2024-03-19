@@ -8,10 +8,8 @@ import org.telegram.telegrambots.updatesreceivers.DefaultBotSession
 class BlopupTelegramApplication
 
 
-
 fun main() {
-        val botsApi = TelegramBotsApi(DefaultBotSession::class.java)
+    val botsApi = TelegramBotsApi(DefaultBotSession::class.java)
     val bot = Bot(System.getenv("TELEGRAM_BOT_TOKEN").toString())
     botsApi.registerBot(bot)
-
-    }
+}
