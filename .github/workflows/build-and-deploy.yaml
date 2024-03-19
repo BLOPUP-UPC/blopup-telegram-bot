@@ -38,20 +38,19 @@ jobs:
         run: |
           scp docker-compose-telegram.yaml remote:/home/$SSH_USER
           scp Dockerfile remote:/home/$SSH_USER
-          VERSION=$(gradle -q printVersion)
-          scp build/libs/blopup.telegram.bot-"$VERSION".jar remote:/home/$SSH_USER
+          VERSION=$(./gradlew -q printVersion)
+          scp build/libs/blopup.telegram.bot-"$VERSION".jar remote:/home/$SSH_USER/blopup.telegram.bot.jar
       - name: Set telegram bot token
         run: |          
           echo "TELEGRAM_BOT_TOKEN=${{ secrets.TELEGRAM_BOT_TOKEN }}" > .env
           scp .env remote:/home/$SSH_USER
       - name: Delete previous instances
         run: ssh remote docker-compose -f docker-compose-telegram.yaml down
-      - name: Deploy to non production environments
+      - name: Deploy to production environment
         run: ssh remote docker-compose -f docker-compose-telegram.yaml up -d --build
       - name: Remove sensitive files
         run: |
           ssh remote rm /home/$SSH_USER/.env
           ssh remote rm /home/$SSH_USER/Dockerfile
-          VERSION=$(gradle -q printVersion)
-          ssh remote rm /home/$SSH_USER/blopup.telegram.bot-"$VERSION".jar
+          ssh remote rm /home/$SSH_USER/blopup.telegram.bot.jar
           ssh remote rm /home/$SSH_USER/docker-compose-telegram.yaml
