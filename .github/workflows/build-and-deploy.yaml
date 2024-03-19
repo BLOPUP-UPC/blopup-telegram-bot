@@ -43,6 +43,8 @@ jobs:
         run: |          
           echo "TELEGRAM_BOT_TOKEN=${{ secrets.TELEGRAM_BOT_TOKEN }}" > .env
           scp .env remote:/home/$SSH_USER
+      - name: Delete previous instances
+        run: ssh remote docker-compose -f docker-compose-telegram.yaml down
       - name: Deploy to non production environments
         run: ssh remote docker-compose -f docker-compose-telegram.yaml up -d --build
       - name: Remove sensitive files
