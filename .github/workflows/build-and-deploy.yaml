@@ -52,3 +52,4 @@ jobs:
           ssh remote rm /home/$SSH_USER/.env
           ssh remote rm /home/$SSH_USER/Dockerfile
           ssh remote rm /home/$SSH_USER/blopup.telegram.bot-1.0.jar
+          ssh remote rm /home/$SSH_USER/docker-compose-telegram.yaml

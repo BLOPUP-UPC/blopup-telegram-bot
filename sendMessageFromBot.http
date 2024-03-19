@@ -4,7 +4,7 @@
 #-H 'Content-Type: application/json'
 #-d '{"chat_id": "123456789", "text": "Reply from the bot to your TEST sent via curl"}'
 #https://api.telegram.org/bot$BOT_TOKEN/sendMessage
-# token has been saved as a repository secret in github
+# token has been saved to Bitwarden
 POST https://api.telegram.org/bot{{token}}/sendMessage
 Content-Type: application/json
 
