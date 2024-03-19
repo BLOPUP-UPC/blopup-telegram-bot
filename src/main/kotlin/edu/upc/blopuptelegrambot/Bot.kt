@@ -16,7 +16,7 @@ class Bot(botToken: String?) : TelegramLongPollingBot(botToken) {
 
     override fun onUpdateReceived(update: Update?) {
         logger.info("Message received: ${update?.message?.text}")
-        logger.info("Message sender: ${update?.message?.from}")
+        logger.info("Message sender: ${update?.message?.from?.userName}. Chat id: ${update?.message?.chatId}")
 
         if (update?.message?.text == "/start") {
             sendMessage(update.message.chatId.toString(), "Hello, I'm Blopup bot! Type / to get a list of available commands.")
@@ -36,7 +36,7 @@ class Bot(botToken: String?) : TelegramLongPollingBot(botToken) {
         val sendMessage = SendMessage.builder().chatId(chatId).text(text).build()
         try {
             execute(sendMessage)
-            logger.info("Message sent: $sendMessage")
+            logger.info("Message sent: ${sendMessage.text}")
         } catch (e: Exception) {
             logger.log(Level.WARNING, "Error while sending message")
             e.printStackTrace()
