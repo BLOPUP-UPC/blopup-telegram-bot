@@ -35,3 +35,7 @@ jar {
         attributes "Main-Class": "com.example.blopuptelegram.BlopupTelegramBotApplicationKt"
     }
 }
+
+tasks.register('printVersion') {
+    println project.version
+}

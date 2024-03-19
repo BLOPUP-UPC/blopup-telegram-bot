@@ -38,7 +38,8 @@ jobs:
         run: |
           scp docker-compose-telegram.yaml remote:/home/$SSH_USER
           scp Dockerfile remote:/home/$SSH_USER
-          scp build/libs/blopup.telegram.bot-1.0.jar remote:/home/$SSH_USER
+          VERSION=$(gradle -q printVersion)
+          scp build/libs/blopup.telegram.bot-"$VERSION".jar remote:/home/$SSH_USER
       - name: Set telegram bot token
         run: |          
           echo "TELEGRAM_BOT_TOKEN=${{ secrets.TELEGRAM_BOT_TOKEN }}" > .env
@@ -51,5 +52,6 @@ jobs:
         run: |
           ssh remote rm /home/$SSH_USER/.env
           ssh remote rm /home/$SSH_USER/Dockerfile
-          ssh remote rm /home/$SSH_USER/blopup.telegram.bot-1.0.jar
+          VERSION=$(gradle -q printVersion)
+          ssh remote rm /home/$SSH_USER/blopup.telegram.bot-"$VERSION".jar
           ssh remote rm /home/$SSH_USER/docker-compose-telegram.yaml
