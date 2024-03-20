@@ -10,3 +10,4 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.routers.blopup-telegram-bot.rule=Host(`${DOMAIN}`) && PathPrefix(`/telegram-bot`)
+      - traefik.http.routers.blopup-telegram-bot.tls.certresolver=blopupresolver

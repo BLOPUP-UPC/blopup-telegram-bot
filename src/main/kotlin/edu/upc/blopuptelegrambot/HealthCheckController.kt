@@ -9,5 +9,4 @@ class HealthCheckController {
 
     @GetMapping("/**", "/")
     fun forwardToHealth() = "Greetings from Blopup Telegram Blot! I'm alive and well!"
-
 }
