@@ -5,6 +5,7 @@ on:
 
 env:
   SSH_USER: ${{ secrets.SSH_USER }}
+  DOMAIN: blopup.upc.edu
 
 permissions: write-all
 
@@ -29,7 +30,7 @@ jobs:
           chmod 600 ~/.ssh/remote.key
           cat >>~/.ssh/config <<END
           Host remote
-            HostName blopup.upc.edu
+            HostName $DOMAIN
             User $SSH_USER
             IdentityFile ~/.ssh/remote.key
             StrictHostKeyChecking no
@@ -40,9 +41,10 @@ jobs:
           scp Dockerfile remote:/home/$SSH_USER
           VERSION=$(./gradlew -q printVersion)
           scp build/libs/blopup.telegram.bot-"$VERSION".jar remote:/home/$SSH_USER/blopup.telegram.bot.jar
-      - name: Set telegram bot token
+      - name: Set environment variables
         run: |          
           echo "TELEGRAM_BOT_TOKEN=${{ secrets.TELEGRAM_BOT_TOKEN }}" > .env
+          echo "DOMAIN=$DOMAIN" >> .env
           scp .env remote:/home/$SSH_USER
       - name: Delete previous instances
         run: ssh remote docker-compose -f docker-compose-telegram.yaml down

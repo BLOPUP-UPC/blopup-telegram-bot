@@ -6,5 +6,7 @@ services:
     restart: unless-stopped
     environment:
       TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN}
-    ports:
-      - "2000:2000"
+      DOMAIN: ${DOMAIN}
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.blopup-telegram-bot.rule=Host(`${DOMAIN}`) && PathPrefix(`/telegram-bot`)

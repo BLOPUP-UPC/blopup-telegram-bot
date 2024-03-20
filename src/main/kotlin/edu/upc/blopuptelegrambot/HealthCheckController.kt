@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.RestController
 class HealthCheckController {
 
     @GetMapping("/**", "/")
-    fun forwardToHealth(): ResponseEntity<String> = ResponseEntity.status(301).location(java.net.URI("/health")).build()
+    fun forwardToHealth() = "Greetings from Blopup Telegram Blot! I'm alive and well!"
 
-    @GetMapping("/health")
-    fun healthCheck() = "I'm alive and well!"
 }
