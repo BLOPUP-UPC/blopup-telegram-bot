@@ -18,9 +18,9 @@ This bot has two main purposes:
 
 ### Send messages
 The Blopup App is automatically configured to send messages to a specific registered doctor. The chatid of the doctor is stored in the database. 
-You can send messages to any chat through the Telegram Bot API by using the chat id.
-
 See the [Blopup project documentation](https://blopup.atlassian.net/wiki/spaces/~639c5d7e61aba8a6a32d7565/pages/118685717/Changing+the+contact+of+the+Doctor+who+receives+messages+via+Telegram) for more information on how to update the chat id of the doctor currently receiving notifications via Telegram.
+
+You can also send messages to any chat through the Telegram Bot API by using the chat id.
 
 Here is a sample request to send a message to a given chatid:
 ````curl POST "https://api.telegram.org/bot<token>/sendMessage" -H 'Content-Type: application/json' -d '{"chat_id": "<chatid>", "text": "This is a test message"}'````
