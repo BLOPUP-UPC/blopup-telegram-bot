@@ -9,12 +9,12 @@ This will deploy the bot to the production server (blopup.upc.edu).
 
 ## How to use
 This bot has two main purposes:
-1. Return the chatid of the chat where the bot is being used. This is useful to know where to send messages to. 
-2. Send messages to the chat where the bot is being used. This is useful to send notifications to the chat.
+1. Return the chatid of the chat where the bot is being used. 
+2. Send messages to the chat where the bot is being used. 
 
 ### Get chatid
-1. Add the bot to the chat where you want to send messages to. The name of the bot is Blopup_bot.
-2. Send the message `/chatid` to the chat. The bot will reply with the chatid of the chat.
+1. In the Telegram app, add the bot to the chat where you want to send messages. The name of the bot is Blopup_bot.
+2. Send the message `/chatid` to the chat. The bot will reply with the chatid of the user.
 
 ### Send messages
 The Blopup App is automatically configured to send messages to a specific registered doctor. The chatid of the doctor is stored in the database. 
@@ -23,6 +23,6 @@ You can send messages to any chat through the Telegram Bot API. The chatid is re
 Here is a sample request to send a message to a given chatid:
 ````curl POST "https://api.telegram.org/bot<token>/sendMessage" -H 'Content-Type: application/json' -d '{"chat_id": "<chatid>", "text": "This is a test message"}'````
 Replace `<token>` with the bot token and `<chatid>` with the chatid of the chat where you want to send the message.
-The Bot Token which you need to use to send messages is stored in the Blopup Bitwarden account.
+The Bot Token is stored in the Blopup Bitwarden account.
 
 See the [Telegram Bot API documentation](https://core.telegram.org/bots/api) for more information.

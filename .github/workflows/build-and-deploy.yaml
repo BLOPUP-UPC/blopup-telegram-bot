@@ -39,6 +39,7 @@ jobs:
         run: |
           scp docker-compose-telegram.yaml remote:/home/$SSH_USER
           scp Dockerfile remote:/home/$SSH_USER
+          ssh remote mkdir -p /home/$SSH_USER/build/libs
           scp build/libs/blopup.telegram.bot.jar remote:/home/$SSH_USER/build/libs/blopup.telegram.bot.jar
       - name: Set environment variables
         run: |          
